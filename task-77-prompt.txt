@@ -1,0 +1,5 @@
+Service discovery client
+
+Description: Register a Spring Boot microservice with a service discovery server like Eureka or Consul. This involves adding the appropriate Spring Cloud starter dependency (e.g., spring-cloud-starter-netflix-eureka-client), enabling the discovery client with an annotation (e.g., @EnableEurekaClient), and configuring the application name and discovery server URL in application.properties.
+
+Skills Tested: Microservices patterns, service discovery, and Spring Cloud configuration.

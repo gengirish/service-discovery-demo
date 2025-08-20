@@ -1,0 +1,200 @@
+# Service Discovery Client Implementation - LLM Prompt
+
+## Problem Statement
+Create a Spring Boot microservice that registers with a service discovery server (Eureka or Consul). The solution should demonstrate microservices patterns, service discovery, and Spring Cloud configuration.
+
+## Requirements
+
+### Core Functionality
+- Register a Spring Boot microservice with a service discovery server
+- Add appropriate Spring Cloud starter dependency (spring-cloud-starter-netflix-eureka-client)
+- Enable discovery client with proper annotation (@EnableEurekaClient or @EnableDiscoveryClient)
+- Configure application name and discovery server URL in application.properties
+- Implement proper package structure following Java conventions
+
+### Technical Specifications
+- **Java Version**: 17+
+- **Spring Boot Version**: 3.2.0
+- **Maven Project Structure**: Standard Maven layout
+- **Package Structure**: com.example.servicediscovery
+- **Main Class**: ServiceDiscoveryApplication.java
+- **Single File Solution**: All components in one main application file with proper inner classes
+
+### Expected Package Structure
+```
+src/
+├── main/
+│   ├── java/
+│   │   └── com/
+│   │       └── example/
+│   │           └── servicediscovery/
+│   │               └── ServiceDiscoveryApplication.java
+│   └── resources/
+│       └── application.properties
+└── test/
+    ├── java/
+    │   └── com/
+    │       └── example/
+    │           └── servicediscovery/
+    │               └── ServiceDiscoveryComprehensiveTest.java
+    └── resources/
+        └── application-test.properties
+```
+
+### Implementation Requirements
+
+#### 1. Main Application Class (ServiceDiscoveryApplication.java)
+The single file should contain:
+
+**Main Application Class:**
+- `@SpringBootApplication` annotation
+- `@EnableEurekaClient` or `@EnableDiscoveryClient` annotation
+- Main method to start the application
+- Proper package declaration: `package com.example.servicediscovery;`
+
+**Inner Classes to Include:**
+- **RestController**: Demonstrate service endpoints that can be discovered
+  - Health check endpoint (`/health`)
+  - Service info endpoint (`/info`)
+  - Discovery status endpoint (`/discovery/status`)
+- **Configuration Class**: Service discovery configuration if needed
+- **Service Class**: Business logic demonstration
+
+#### 2. Configuration (application.properties)
+```properties
+# Application Configuration
+spring.application.name=service-discovery-demo
+server.port=8080
+
+# Eureka Client Configuration
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+eureka.client.register-with-eureka=true
+eureka.client.fetch-registry=true
+eureka.instance.prefer-ip-address=true
+eureka.instance.hostname=localhost
+
+# Management Endpoints
+management.endpoints.web.exposure.include=health,info,discovery
+management.endpoint.health.show-details=always
+
+# Logging
+logging.level.com.netflix.eureka=DEBUG
+logging.level.com.netflix.discovery=DEBUG
+```
+
+#### 3. Maven Dependencies (pom.xml)
+Required dependencies:
+- spring-boot-starter-parent (3.2.0)
+- spring-boot-starter-web
+- spring-cloud-starter-netflix-eureka-client
+- spring-boot-starter-actuator
+- spring-boot-starter-test (test scope)
+
+#### 4. Comprehensive Test Class
+Create `ServiceDiscoveryComprehensiveTest.java` with:
+- **Unit Tests**: Test service registration logic
+- **Integration Tests**: Test endpoints and discovery client
+- **Mock Tests**: Test with mock Eureka server
+- Use `@SpringBootTest`, `@MockBean`, `@TestPropertySource`
+
+### Key Features to Implement
+
+#### Service Discovery Features:
+1. **Eureka Client Registration**
+   - Automatic service registration on startup
+   - Heartbeat mechanism
+   - Graceful shutdown and deregistration
+
+2. **Service Endpoints**
+   - RESTful endpoints that can be discovered by other services
+   - Health check endpoint for service monitoring
+   - Service metadata exposure
+
+3. **Configuration Management**
+   - Externalized configuration via application.properties
+   - Environment-specific configurations
+   - Discovery server connection settings
+
+4. **Error Handling**
+   - Connection failure handling
+   - Retry mechanisms
+   - Fallback strategies
+
+### Testing Requirements
+
+#### Test Categories:
+1. **Service Registration Tests** (8+ tests)
+   - Test successful registration with Eureka
+   - Test registration with custom metadata
+   - Test deregistration on shutdown
+   - Test heartbeat mechanism
+   - Test registration retry on failure
+
+2. **Endpoint Discovery Tests** (6+ tests)
+   - Test health endpoint accessibility
+   - Test info endpoint response
+   - Test discovery status endpoint
+   - Test service metadata retrieval
+
+3. **Configuration Tests** (5+ tests)
+   - Test application properties loading
+   - Test Eureka client configuration
+   - Test service instance configuration
+   - Test management endpoints configuration
+
+4. **Integration Tests** (8+ tests)
+   - Test full application startup with Eureka
+   - Test service discovery functionality
+   - Test endpoint registration and discovery
+   - Test graceful shutdown
+
+### Code Quality Requirements
+- Proper exception handling
+- Comprehensive logging
+- Clean code principles
+- Proper documentation with JavaDoc
+- Follow Spring Boot best practices
+- Implement proper separation of concerns within single file
+
+### Validation Criteria
+The solution will be validated against:
+1. **Compilation**: Must compile without errors using Maven
+2. **Tests**: All test cases must pass
+3. **Functionality**: Service must register with Eureka successfully
+4. **Endpoints**: All REST endpoints must be accessible
+5. **Configuration**: Proper configuration loading and application
+6. **Package Structure**: Correct Java package organization
+7. **Spring Cloud Integration**: Proper use of Spring Cloud annotations and features
+
+### Expected Deliverables
+1. **ServiceDiscoveryApplication.java** - Single file containing all implementation
+2. **application.properties** - Service configuration
+3. **application-test.properties** - Test configuration
+4. **ServiceDiscoveryComprehensiveTest.java** - Complete test suite
+5. **pom.xml** - Maven configuration with all required dependencies
+
+### Success Metrics
+- Service successfully registers with Eureka server
+- All endpoints return expected responses
+- Health checks pass consistently
+- Service can be discovered by other microservices
+- Comprehensive test coverage (25+ test scenarios)
+- Clean, maintainable code structure
+
+### Additional Considerations
+- Handle network failures gracefully
+- Implement proper logging for debugging
+- Consider security aspects (if applicable)
+- Ensure proper resource cleanup
+- Follow microservices best practices
+- Document service contract and API
+
+## Implementation Notes
+- Use Spring Cloud 2023.0.0 (compatible with Spring Boot 3.2.0)
+- Implement proper error handling for service discovery failures
+- Add comprehensive logging for troubleshooting
+- Consider implementing service health indicators
+- Use proper HTTP status codes in endpoints
+- Implement graceful degradation when Eureka is unavailable
+
+This prompt should guide the LLM to create a complete, production-ready service discovery client implementation with proper package structure and comprehensive testing.
